@@ -6,17 +6,6 @@ self: super: {
   ubootRaspberryPi_64bit = super.buildUBoot rec {
     defconfig = "rpi_arm64_defconfig";
     extraMeta.platforms = [ "aarch64-linux" ];
-    extraConfig = ''
-      CONFIG_BOOTDELAY=-2
-      CONFIG_SILENT_CONSOLE=y
-      CONFIG_SYS_DEVICE_NULLDEV=y
-      CONFIG_SILENT_CONSOLE_UPDATE_ON_SET=y
-      CONFIG_SILENT_U_BOOT_ONLY=y
-      CONFIG_AUTOBOOT_KEYED=y
-      CONFIG_AUTOBOOT_PROMPT="NO UART\0"
-      CONFIG_AUTOBOOT_DELAY_STR="dfg\0"
-      CONFIG_AUTOBOOT_STOP_STR="1234\0"
-    '';
     filesToInstall = [ "u-boot.bin" ];
     # version = "2024.04";
     # src = super.fetchFromGitHub {
