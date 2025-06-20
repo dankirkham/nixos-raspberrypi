@@ -4,22 +4,6 @@
 , extraDeviceTreeOverlays ? null
 }:
 
-let
-  firmwareWithExtraBlobs =
-  # if
-  #   extraDeviceTreeOverlays == null
-  # then
-  #   firmware
-  # else
-    (pkgs.runCommand "add-user-device-tree-blobs" {
-      nativeBuildInputs = [ pkgs.coreutils ];
-    } ''
-      mkdir -p $out
-      cp -r ${firmware}/* $out/
-      cp ${extraDeviceTreeOverlays}/* $out/share/raspberrypi/boot/overlays/
-    '');
-in
-
 pkgs.substituteAll {
   src = ./firmware-builder.sh;
   isExecutable = true;
@@ -27,5 +11,5 @@ pkgs.substituteAll {
   inherit (pkgs) bash;
   path = [ pkgs.coreutils ];
 
-  inherit firmwareWithExtraBlobs configTxt;
+  inherit firmware extraDeviceTreeOverlays configTxt;
 }

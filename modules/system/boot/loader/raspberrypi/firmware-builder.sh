@@ -37,7 +37,7 @@ copyForced() {
 
 # Add the firmware files
 # fwdir=@firmware@/share/raspberrypi/boot/
-SRC_FIRMWARE_DIR=@firmwareWithExtraBlobs@/share/raspberrypi/boot
+SRC_FIRMWARE_DIR=@firmware@/share/raspberrypi/boot
 dtb_path=$SRC_FIRMWARE_DIR
 
 echo "copying firmware..."
@@ -70,6 +70,14 @@ for ovr in "${SRC_OVERLAYS[@]}"; do
     copyForced $ovr "$dst"
     filesCopied[$dst]=1
 done
+
+EXTRA_OVERLAYS=@extraDeviceTreeOverlays@/*
+for ovr in "${EXTRA_OVERLAYS[@]}"; do
+    dst="$target/overlays/$(basename $ovr)"
+    copyForced $ovr "$dst"
+    filesCopied[$dst]=1
+done
+
 
 # remove obsolete device tree files
 for fn in $target/*.dtb $target/overlays/*; do
