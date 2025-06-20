@@ -1,7 +1,7 @@
 { pkgs
 , configTxt
 , firmware ? pkgs.raspberrypifw
-, extraDeviceTreeOverlays
+, extraDeviceTreeOverlays ? null
 }:
 
 let
