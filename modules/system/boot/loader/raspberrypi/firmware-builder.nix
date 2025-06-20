@@ -5,11 +5,12 @@
 }:
 
 let
-  firmwareWithExtraBlobs = if
-    extraDeviceTreeOverlays == null
-  then
-    firmware
-  else
+  firmwareWithExtraBlobs =
+  # if
+  #   extraDeviceTreeOverlays == null
+  # then
+  #   firmware
+  # else
     (pkgs.runCommand "add-user-device-tree-blobs" {
       nativeBuildInputs = [ pkgs.coreutils ];
     } ''
