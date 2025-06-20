@@ -119,7 +119,7 @@ in
       };
 
       extraDeviceTreeOverlays = mkOption {
-        default = "";
+        default = null;
         type = types.package;
         description = ''
           Additional overlays to be copied to the overlay directory on the boot

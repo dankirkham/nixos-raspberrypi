@@ -5,13 +5,18 @@
 }:
 
 let
-  firmwareWithExtraBlobs = pkgs.runCommand "add-user-device-tree-blobs" {
-    nativeBuildInputs = [ pkgs.coreutils ];
-  } ''
-    mkdir -p $out
-    cp -r ${firmware}/* $out/
-    cp ${extraDeviceTreeOverlays}/* $out/share/raspberrypi/boot/overlays/
-  '';
+  firmwareWithExtraBlobs = if
+    extraDeviceTreeOverlays
+  then
+    (pkgs.runCommand "add-user-device-tree-blobs" {
+      nativeBuildInputs = [ pkgs.coreutils ];
+    } ''
+      mkdir -p $out
+      cp -r ${firmware}/* $out/
+      cp ${extraDeviceTreeOverlays}/* $out/share/raspberrypi/boot/overlays/
+    '')
+  else
+    firmware;
 in
 
 pkgs.substituteAll {
