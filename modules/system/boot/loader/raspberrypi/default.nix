@@ -13,6 +13,7 @@ let
   firmwareBuilder = import ./firmware-builder.nix {
     inherit pkgs configTxt;
     firmware = cfg.firmwarePackage;
+    extraDeviceTreeOverlays = cfg.extraDeviceTreeOverlays;
   };
   kernelbootBuilder = import ./kernelboot-builder.nix {
     inherit pkgs;
@@ -114,6 +115,15 @@ in
           - kernelboot: system generations, `<firmwarePath>/nixos-kernels` will hold
             files from older generations.
           - uboot: uboot binary
+        '';
+      };
+
+      extraDeviceTreeOverlays = mkOption {
+        default = "";
+        type = types.package;
+        description = ''
+          Additional overlays to be copied to the overlay directory on the boot
+          partition.
         '';
       };
 

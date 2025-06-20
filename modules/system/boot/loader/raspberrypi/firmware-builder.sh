@@ -37,7 +37,7 @@ copyForced() {
 
 # Add the firmware files
 # fwdir=@firmware@/share/raspberrypi/boot/
-SRC_FIRMWARE_DIR=@firmware@/share/raspberrypi/boot
+SRC_FIRMWARE_DIR=@firmwareWithExtraBlobs@/share/raspberrypi/boot
 dtb_path=$SRC_FIRMWARE_DIR
 
 echo "copying firmware..."
