@@ -31,6 +31,7 @@ let
     inherit configTxt;
     pkgs = pkgs.buildPackages;
     firmware = cfg.firmwarePackage;
+    extraDeviceTreeOverlays = cfg.extraDeviceTreeOverlays;
   };
   populateKernelbootBuilder = import ./kernelboot-builder.nix {
     pkgs = pkgs.buildPackages;
