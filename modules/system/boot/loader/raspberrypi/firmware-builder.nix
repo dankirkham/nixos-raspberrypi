@@ -6,17 +6,17 @@
 
 let
   firmwareWithExtraBlobs = if
-    extraDeviceTreeOverlays
+    extraDeviceTreeOverlays == null
   then
+    firmware
+  else
     (pkgs.runCommand "add-user-device-tree-blobs" {
       nativeBuildInputs = [ pkgs.coreutils ];
     } ''
       mkdir -p $out
       cp -r ${firmware}/* $out/
       cp ${extraDeviceTreeOverlays}/* $out/share/raspberrypi/boot/overlays/
-    '')
-  else
-    firmware;
+    '');
 in
 
 pkgs.substituteAll {
